@@ -1,0 +1,17 @@
+
+html {
+    
+}
+
+{ 
+    padding: 0; 
+    margin: 0; 
+}
+
+canvas {
+	
+    border:1px solid #d3d3d3;
+    background-color: #012F47;
+    display: block; 
+    margin: 0 auto;
+}
