@@ -1,6 +1,7 @@
-var canvas = document.getElementById("myCanvas");
-var ctx = canvas.getContext("2d");
-var ballRadius = 10;
+//Variablen-Deklaration 
+var canvas = document.getElementById("myCanvas"); //Canvas mit ID einlesen 
+var ctx = canvas.getContext("2d"); //Canvas Render Context = 2D -> hiermit wird spaeter auf auf dem Canvas gezeichnet 
+var ballRadius = 10; 
 var x = canvas.width/2;
 var y = canvas.height-30;
 var dx = 2;
@@ -16,16 +17,17 @@ var brickColumnCount = 5;
 var brickWidth = 75;
 var brickHeight = 20;
 var brickPadding = 10;
-var brickOffsetTop = 30;
-var brickOffsetLeft = 30;
+var brickOffsetTop = 60;
+var brickOffsetLeft = 150;
 
 var score = 0; 
+
 
 var bricks = [];
 for(var c=0; c<brickColumnCount; c++) {
     bricks[c] = [];
     for(var r=0; r<brickRowCount; r++) {
-        bricks[c][r] = { x: 0, y: 0, status: 1 };
+        bricks[c][r] = { x: 0, y: 0, status: 1 }; //2D Array wird erstellt
     }
 }
 
@@ -70,27 +72,54 @@ function collisionDetection() {
     }
 }
 
+//Zeichnen des Scoreboards
 function drawScore() {
     ctx.font = "16px Arial";
     ctx.fillStyle = "#0095DD";
-    ctx.fillText("Score: "+score, 8, 20);
+    ctx.fillText("Score: "+score, 50, 20);
+    ctx.font = "16px Arial";
+    ctx.fillStyle = "#0095DD"
+    ctx.fillText("Level 3", 340, 20);
+    ctx.textAlign = "center";
 }
 
+//Zeichnen der Hintergrundelemente
+function drawBackground() {
+    //Zeichnen eines Dreiecks 
+    ctx.beginPath(); //Anweisung fuer Start der Zeichnung
+    ctx.moveTo(100, 100);
+    ctx.lineTo(100, 300);
+    ctx.lineTo(300, 300);
+    ctx.closePath(); //Ende der Zeichnung
+
+    ctx.lineWidth = 10;
+    ctx.strokeStyle = "#666666"; //Farbe des Ramen 
+    ctx.stroke();
+
+    ctx.fillStyle = "#FFCC00";
+    ctx.fill(); 
+
+}
+
+//Zeichnung des Spielballs
 function drawBall() {
     ctx.beginPath();
-    ctx.arc(x, y, ballRadius, 0, Math.PI*2);
+    ctx.arc(x, y, ballRadius, 0, Math.PI*2); //arc fuer Zeichnen eines Kreises
     ctx.fillStyle = "#FF8591";
     ctx.fill();
     ctx.closePath();
 }
+
+//Zeichnen des Schlaegers
 function drawPaddle() {
     ctx.beginPath();
-    ctx.rect(paddleX, canvas.height-paddleHeight, paddleWidth, paddleHeight);
+    ctx.rect(paddleX, canvas.height-paddleHeight, paddleWidth, paddleHeight); //rect fuer Zeichnen eines Rechtecks
     ctx.fillStyle = "#B3AF42";
     ctx.fill();
     ctx.closePath();
 }
 
+//Zeichnen der Bricks aus dem 2D Array
 function drawBricks() {
     for(var c=0; c<brickColumnCount; c++) {
         for(var r=0; r<brickRowCount; r++) {
@@ -111,9 +140,11 @@ function drawBricks() {
 
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    drawBackground();
     drawBall();
     drawPaddle();
     drawScore();
+    drawBackground();
     collisionDetection();
     drawBricks();
     
@@ -145,4 +176,4 @@ function draw() {
     y += dy;
 }
 
-var interval = setInterval(draw, 10);
+var interval = setInterval(draw, 10); //Interval fuer das Zeichnen der Frames 
