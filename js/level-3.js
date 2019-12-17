@@ -84,12 +84,13 @@ function drawScore() {
 }
 
 //Zeichnen der Hintergrundelemente
+//Canvas: height="520" width="680"
 function drawBackground() {
     //Zeichnen eines Dreiecks 
     ctx.beginPath(); //Anweisung fuer Start der Zeichnung
-    ctx.moveTo(100, 100);
-    ctx.lineTo(100, 300);
-    ctx.lineTo(300, 300);
+    ctx.moveTo(200, 410);
+    ctx.lineTo(120, 510);
+    ctx.lineTo(280, 510);
     ctx.closePath(); //Ende der Zeichnung
 
     ctx.lineWidth = 10;
@@ -102,13 +103,13 @@ function drawBackground() {
 }
 
 //Zeichnung des Spielballs
-function drawBall() {
+/*function drawBall() {
     ctx.beginPath();
     ctx.arc(x, y, ballRadius, 0, Math.PI*2); //arc fuer Zeichnen eines Kreises
     ctx.fillStyle = "#FF8591";
     ctx.fill();
     ctx.closePath();
-}
+}*/
 
 //Zeichnen des Schlaegers
 function drawPaddle() {
