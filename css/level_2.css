@@ -1,0 +1,42 @@
+body{
+    background-image: url(/resources/level_2/MinorIdolizedCassowary-size_restricted.gif);
+    background-size: cover;
+    background-position:center;
+    background-repeat: no-repeat;
+}
+
+div.kreis{
+    margin: auto;
+    background-color: aqua;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background-image: url(/resources/level_2/Planetenoberfläche.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size:400px;
+    -webkit-animation: antiClockwiseSpin 10s infinite linear;
+    animation: antiClockwiseSpin 10s infinite linear;
+    user-select: none;
+
+}
+@keyframes antiClockwiseSpin {
+	0%  {transform: rotate(0deg);}
+	100% {transform: rotate(360deg);}	
+}
+
+#canvas-wrap{
+    position: relative; top: auto; width: 924px; height: 520px; user-select: none;
+}
+
+#canvas-wrap canvas{
+    position: absolute; top: 50% ; left: 50%;
+    transform: translate(-50%, -50%);
+    user-select: none;
+}
+ 
+canvas{
+    margin-left: 200px;
+    margin-top: 50px;
+    user-select: none;
+}
