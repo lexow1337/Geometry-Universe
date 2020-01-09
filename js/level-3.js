@@ -7,7 +7,7 @@ var y = canvas.height-30;
 var dx = 2;
 var dy = -2;
 var paddleHeight = 10;
-var paddleWidth = 75;
+var paddleWidth = 100;
 var paddleX = (canvas.width-paddleWidth)/2;
 var rightPressed = false;
 var leftPressed = false;
@@ -18,9 +18,14 @@ var brickWidth = 75;
 var brickHeight = 20;
 var brickPadding = 10;
 var brickOffsetTop = 60;
-var brickOffsetLeft = 150;
+var brickOffsetLeft = 250;
 
 var score = 0; 
+
+var bx = -1500;
+var by = 30;
+var fx = 2
+var fy = 0
 
 
 var bricks = [];
@@ -79,37 +84,32 @@ function drawScore() {
     ctx.fillText("Score: "+score, 50, 20);
     ctx.font = "16px Arial";
     ctx.fillStyle = "#0095DD"
-    ctx.fillText("Level 3", 340, 20);
+    ctx.fillText("Level 3", canvas.width/2, 20);
     ctx.textAlign = "center";
 }
 
 //Zeichnen der Hintergrundelemente
 //Canvas: height="520" width="680"
 function drawBackground() {
-    //Zeichnen eines Dreiecks 
-    ctx.beginPath(); //Anweisung fuer Start der Zeichnung
-    ctx.moveTo(200, 410);
-    ctx.lineTo(120, 510);
-    ctx.lineTo(280, 510);
-    ctx.closePath(); //Ende der Zeichnung
-
-    ctx.lineWidth = 10;
-    ctx.strokeStyle = "#666666"; //Farbe des Ramen 
-    ctx.stroke();
-
-    ctx.fillStyle = "#FFCC00";
-    ctx.fill(); 
-
+    var img = new Image();
+    var img2 = new Image();
+    var img3 = new Image();
+    img.src="resources/level_3/fish-1.gif"
+    img2.src="resources/level_3/fish-2.gif";
+    img3.src="resources/level_3/fish-3.gif";
+    ctx.drawImage(img, bx, by)
+    ctx.drawImage(img2, bx-10, by+150, 150, 150) 
+    ctx.drawImage(img3, bx+30, by+200) 
 }
 
 //Zeichnung des Spielballs
-/*function drawBall() {
+function drawBall() {
     ctx.beginPath();
     ctx.arc(x, y, ballRadius, 0, Math.PI*2); //arc fuer Zeichnen eines Kreises
     ctx.fillStyle = "#FF8591";
     ctx.fill();
     ctx.closePath();
-}*/
+}
 
 //Zeichnen des Schlaegers
 function drawPaddle() {
@@ -141,13 +141,13 @@ function drawBricks() {
 
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    drawBackground();
     drawBall();
     drawPaddle();
     drawScore();
-    drawBackground();
     collisionDetection();
     drawBricks();
+    drawBackground();
+
     
     if(x + dx > canvas.width-ballRadius || x + dx < ballRadius) {
         dx = -dx;
@@ -160,9 +160,9 @@ function draw() {
             dy = -dy;
         }
         else {
-            alert("GAME OVER");
-            document.location.reload();
-            clearInterval(interval); // Needed for Chrome to end game
+            //alert("GAME OVER");
+            //document.location.reload();
+            //clearInterval(interval); // Needed for Chrome to end game
         }
     }
     
@@ -173,8 +173,15 @@ function draw() {
         paddleX -= 7;
     }
     
+    //Ball x & y
     x += dx;
     y += dy;
+
+    //Background x & y
+    bx += fx;
+    by += fy;
+
+    console.log(interval);
 }
 
 var interval = setInterval(draw, 10); //Interval fuer das Zeichnen der Frames 
