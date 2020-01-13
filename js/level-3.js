@@ -3,7 +3,7 @@ var canvas = document.getElementById("myCanvas"); //Canvas mit ID einlesen
 var ctx = canvas.getContext("2d"); //Canvas Render Context = 2D -> hiermit wird spaeter auf auf dem Canvas gezeichnet 
 var ballRadius = 10; 
 var x = canvas.width/2;
-var y = canvas.height-30;
+var y = canvas.height-50;
 var dx = 2;
 var dy = -2;
 var paddleHeight = 10;
@@ -90,16 +90,23 @@ function drawScore() {
 
 //Zeichnen der Hintergrundelemente
 //Canvas: height="520" width="680"
-function drawBackground() {
+function drawFishes() {
     var img = new Image();
     var img2 = new Image();
     var img3 = new Image();
     img.src="resources/level_3/fish-1.gif"
     img2.src="resources/level_3/fish-2.gif";
-    img3.src="resources/level_3/fish-3.gif";
+    img3.src="resources/level_3/fish-3.gif"; 
     ctx.drawImage(img, bx, by)
     ctx.drawImage(img2, bx-10, by+150, 150, 150) 
     ctx.drawImage(img3, bx+30, by+200) 
+    
+}
+
+function drawBackground() {
+    var img4 = new Image();
+    img4.src="resources/level_3/background.jpg";
+    ctx.drawImage(img4, 0, 0) 
 }
 
 //Zeichnung des Spielballs
@@ -115,7 +122,7 @@ function drawBall() {
 function drawPaddle() {
     ctx.beginPath();
     ctx.rect(paddleX, canvas.height-paddleHeight, paddleWidth, paddleHeight); //rect fuer Zeichnen eines Rechtecks
-    ctx.fillStyle = "#B3AF42";
+    ctx.fillStyle = "#1D3140";
     ctx.fill();
     ctx.closePath();
 }
@@ -141,12 +148,13 @@ function drawBricks() {
 
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    drawBackground();
     drawBall();
     drawPaddle();
     drawScore();
     collisionDetection();
     drawBricks();
-    drawBackground();
+    drawFishes();
 
     
     if(x + dx > canvas.width-ballRadius || x + dx < ballRadius) {
@@ -160,9 +168,9 @@ function draw() {
             dy = -dy;
         }
         else {
-            //alert("GAME OVER");
-            //document.location.reload();
-            //clearInterval(interval); // Needed for Chrome to end game
+            alert("GAME OVER");
+            document.location.reload();
+            clearInterval(interval); // Needed for Chrome to end game
         }
     }
     
