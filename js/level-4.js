@@ -16,7 +16,6 @@ let brickWidth = 75;
 let brickHeight = 20;
 let brickColumnCount = 4;
 let brickRowCount = 4;
-//let shipImg = new Image();
 let score = 0;
 let lives = 3;
 let bricks = [];
@@ -40,18 +39,13 @@ draw();
 function draw() {
     frameCount++;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    //init();
-    drawShip();
     drawBricks();
+    drawShip();
     drawShots();
     collisionDetection();
     drawLives();
     drawScore();
 }
-
-/*function init(){
-    shipImg.src = 'ship.png';
-}*/
 
 function drawShip() {
     if (upPressed) {
@@ -76,7 +70,7 @@ function drawShip() {
             shipX = canvas.width * 0.4 - shipWidth;
         }
     }
-    if (spacePressed && lastShot > 50) {
+    if (spacePressed && lastShot > 30) {
         shots.push({
             x: shipX + shipWidth,
             y: shipY + shipHeight / 2 - shotHeight / 2,
