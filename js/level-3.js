@@ -22,7 +22,7 @@ var brickOffsetLeft = 250;
 
 var score = 0; 
 
-var bx = -1500;
+var bx = -30;
 var by = 30;
 var fx = 2
 var fy = 0
@@ -67,8 +67,10 @@ function collisionDetection() {
                     b.status = 0;
                     score++;
                     if(score == brickRowCount*brickColumnCount) {
-                        alert("You Win, Congratulations!")
-                        document.location.reload();
+                        //alert("You Win, Congratulations!")
+                        //document.location.reload();
+                        ctx.clearRect(0, 0, canvas.width, canvas.height);
+                        document.getElementById("level_complete").classList.add("visible"); 
                         clearInterval(interval);
                     }
                 }
@@ -146,6 +148,7 @@ function drawBricks() {
     }
 }
 
+var counter = 0;
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     drawBackground();
@@ -155,6 +158,12 @@ function draw() {
     collisionDetection();
     drawBricks();
     drawFishes();
+    if(counter%1000 == 0) {
+        bx = -300;
+        by=0;
+    }
+
+
 
     
     if(x + dx > canvas.width-ballRadius || x + dx < ballRadius) {
@@ -168,8 +177,10 @@ function draw() {
             dy = -dy;
         }
         else {
-            alert("GAME OVER");
-            document.location.reload();
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            //alert("GAME OVER");
+            //document.location.reload();
+            document.getElementById("game_over").classList.add("visible");  
             clearInterval(interval); // Needed for Chrome to end game
         }
     }
@@ -185,11 +196,12 @@ function draw() {
     x += dx;
     y += dy;
 
-    //Background x & y
+    //Koordinaten der Fischbewegung x & y
     bx += fx;
     by += fy;
 
-    console.log(interval);
+    counter++;
+
 }
 
 var interval = setInterval(draw, 10); //Interval fuer das Zeichnen der Frames 
