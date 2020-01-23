@@ -9,7 +9,7 @@ var by = 100;
 
 function startGame() {
     //myGamePiece = new component(30, 30, "Yellow", 10, 120);
-	myGamePiece = new component( 30, 30, "resources/level_1/Figur1.png", 10, 120, "image");
+	myGamePiece = new component( 30, 30, "resources/level_1/Figur5.png", 10, 120, "image");
     myGamePiece.gravity = 0.05;
     myScore = new component("30px", "Consolas", "white", 280, 40, "text");
     myGameArea.start();
@@ -145,10 +145,35 @@ function updateGameArea() {
         } 
 	
 	
-	if (numberIntervals(10000)){
+	if (numberIntervals(9700)){
+			if (everyinterval(150)) {
+			x = myGameArea.canvas.width;
+			minHeight = 0;
+			maxHeight = 500;
+			height = Math.floor(Math.random()*(maxHeight-minHeight+1)+minHeight);
+			minGap = 75;
+			maxGap = 75;
+			gap = Math.floor(Math.random()*(maxGap-minGap+1)+minGap);
+			myObstacles.push(new component(30, height, "#6A6A4A", x, 0));
+			myObstacles.push(new component(30, x - height - gap, "#6A6A4A", x, height + gap));
+			
+		}	
+
+		for (i = 0; i < myObstacles.length; i += 1) {
+			myObstacles[i].x += -1.7;
+			myObstacles[i].update();
+			}
+		updates();
+		move();
+		}
+	
+	
+	if (numberIntervals(9200)){
+		
 		if (everyinterval(150)) {
 			x = myGameArea.canvas.width;
-			minHeight = 130;
+			/*
+			minHeight = 100;
 			maxHeight = 180;
 			height = Math.floor(Math.random()*(maxHeight-minHeight+1)+minHeight);
 			minGap = 75;
@@ -156,104 +181,47 @@ function updateGameArea() {
 			gap = Math.floor(Math.random()*(maxGap-minGap+1)+minGap);
 			myObstacles.push(new component(30, height, "#6A6A4A", x, 0));
 			myObstacles.push(new component(30, x - height - gap, "#6A6A4A", x, height + gap));
-			
-		}
+			*/
+		}	
+		
 
 		for (i = 0; i < myObstacles.length; i += 1) {
-			myObstacles[i].x += -1;
+			myObstacles[i].x += -2.5;
 			myObstacles[i].update();
+			}
+		updates();
+		move();
 		}
-		myScore.text= "Höhle des Majritji " + myDistance + " m";
-		myScore.update();
-		myGamePiece.newPos();
-		myGamePiece.update();
-		myGamePiece.speedX = 0;
-		myGamePiece.speedY = 0;
-		
-		
-			if (myGameArea.keys && myGameArea.keys[37]) {
-				myGamePiece.speedX = -1; 
-				myGamePiece.gravity = 0
-			}
-			if (myGameArea.keys && myGameArea.keys[39]) {
-				myGamePiece.speedX = 1; 
-				myGamePiece.gravity = 0
-			}
-
-			if (myGameArea.keys && myGameArea.keys[38]) {
-				myGamePiece.speedY = -1;
-				myGamePiece.gravity = 0
-			}
-
-			if (myGameArea.keys && myGameArea.keys[40]){
-				myGamePiece.speedY = 1;
-				myGamePiece.gravity = 0
-			}
-
-		myGamePiece.newPos();    
-		myGamePiece.update();
-		
-		
-
-	}
 	
 	
-	else{
-		
-		if (numberIntervals(6000)){
+		else{
 
-			if (everyinterval(150)) {
-				x = myGameArea.canvas.width;
-				minHeight = 10;
-				maxHeight = 300;
-				height = Math.floor(Math.random()*(maxHeight-minHeight+1)+minHeight);
-				minGap = 75;
-				maxGap = 100;
-				gap = Math.floor(Math.random()*(maxGap-minGap+1)+minGap);
-				myObstacles.push(new component(30, height, "#4A4A4A", x, 0));
-				myObstacles.push(new component(30, x - height - gap, "#4A4A4A", x, height + gap));
+			if (numberIntervals(6000)){
 
-			}
-			//}
+				if (everyinterval(150)) {
+					x = myGameArea.canvas.width;
+					minHeight = 10;
+					maxHeight = 300;
+					height = Math.floor(Math.random()*(maxHeight-minHeight+1)+minHeight);
+					minGap = 75;
+					maxGap = 100;
+					gap = Math.floor(Math.random()*(maxGap-minGap+1)+minGap);
+					myObstacles.push(new component(30, height, "#4A4A4A", x, 0));
+					myObstacles.push(new component(30, x - height - gap, "#4A4A4A", x, height + gap));
 
-			for (i = 0; i < myObstacles.length; i += 1) {
-				myObstacles[i].x += -2;
-				myObstacles[i].update();
-			}
-			myScore.text= "Höhle des Majritji " + myDistance + " m";
-			myScore.update();
-			myGamePiece.newPos();
-			myGamePiece.update();
-			myGamePiece.speedX = 0;
-			myGamePiece.speedY = 0;
+				}
+				//}
 
-		
-									if (myGameArea.keys && myGameArea.keys[37]) {
-										myGamePiece.speedX = -1.5; 
-										myGamePiece.gravity = 0
-									}
+				for (i = 0; i < myObstacles.length; i += 1) {
+					myObstacles[i].x += -2;
+					myObstacles[i].update();
+				}
+				updates();
+				move();
 
-									if (myGameArea.keys && myGameArea.keys[39]) {
-										myGamePiece.speedX = 1.5; 
-										myGamePiece.gravity = 0
-									}
 
-									if (myGameArea.keys && myGameArea.keys[38]) {
-										myGamePiece.speedY = -1.5;
-										myGamePiece.gravity = 0
-									}
 
-									if (myGameArea.keys && myGameArea.keys[40]){
-										myGamePiece.speedY = 1.5;
-										myGamePiece.gravity = 0
-									}
-
-		myGamePiece.newPos();    
-		myGamePiece.update();
-		
-		
-
-	}
+		}
 	
 							else {
 
@@ -272,40 +240,15 @@ function updateGameArea() {
 									myObstacles.push(new component(30, x - height - gap, "#2F2F2F", x, height + gap));
 									}
 
-								//for (i = 0; i < myObstacles.length; i += 1) {
 									for (i = 0; i < myObstacles.length; i += 1) {
 										myObstacles[i].x += -3;
 										myObstacles[i].update();
 									}
 
-								myScore.text= "Höhle des Majritji " + myDistance + " m";
-								myScore.update();
-								myGamePiece.newPos();
-								myGamePiece.update();
-								myGamePiece.speedX = 0;
-								myGamePiece.speedY = 0;
-
-								if (myGameArea.keys && myGameArea.keys[37]) {
-									myGamePiece.speedX = -1.5; 
-									myGamePiece.gravity = 0
-								}
-								if (myGameArea.keys && myGameArea.keys[39]) {
-									myGamePiece.speedX = 1.5; 
-									myGamePiece.gravity = 0
-								}
-
-								if (myGameArea.keys && myGameArea.keys[38]) {
-									myGamePiece.speedY = -1.5;
-									myGamePiece.gravity = 0
-								}
-
-								if (myGameArea.keys && myGameArea.keys[40]){
-									myGamePiece.speedY = 1.5;
-									myGamePiece.gravity = 0
-								}
-								myGamePiece.newPos();    
-								myGamePiece.update();
-
+							
+								updates();
+								move();
+							
 							}
 
 //	}
@@ -324,7 +267,7 @@ function updateGameArea() {
 															minHeight = 130;
 															maxHeight = 180;
 															height = Math.floor(Math.random()*(maxHeight-minHeight+1)+minHeight);
-															minGap = 75;
+															minGap = 90;
 															maxGap = 100;
 															gap = Math.floor(Math.random()*(maxGap-minGap+1)+minGap);
 															myObstacles.push(new component(150, height, "#2F2F2F", x, 0));
@@ -339,31 +282,50 @@ function updateGameArea() {
 															myObstacles[i].x += -1;
 															myObstacles[i].update();
 														}
-														myScore.text="Höhle des Majritji " + myDistance + " m";
-														myScore.update();
-														myGamePiece.newPos();
-														myGamePiece.update();
-														myGamePiece.speedX = 0;
-														myGamePiece.speedY = 0;    
-														if (myGameArea.keys && myGameArea.keys[37]) {
-															myGamePiece.speedX = -1; myGamePiece.gravity = 0}
-
-														if (myGameArea.keys && myGameArea.keys[39]) {
-															myGamePiece.speedX = 1; myGamePiece.gravity = 0}
-
-														if (myGameArea.keys && myGameArea.keys[38]) {
-															myGamePiece.speedY = -1;myGamePiece.gravity = 0 }
-
-														if (myGameArea.keys && myGameArea.keys[40]) {
-															myGamePiece.speedY = 1;myGamePiece.gravity = 0 }
-														myGamePiece.newPos();    
-														myGamePiece.update();
-
+											
+														updates();
+														move();
+														
+													
 												}
 				}
-		}		//draw();
+		}		
 }
+
+function updates(){
+	myScore.text="Höhle des Majritji " + myDistance + " m";
+	myScore.update();
+	myGamePiece.newPos();
+	myGamePiece.update();
+	myGamePiece.speedX = 0;
+	myGamePiece.speedY = 0;    
+	}
+											
 	
+	
+function move(){
+	
+	if (myGameArea.keys && myGameArea.keys[37]) {
+			myGamePiece.speedX = -1.5; myGamePiece.gravity = 0
+	}
+
+	if (myGameArea.keys && myGameArea.keys[39]) {
+			myGamePiece.speedX = 1.5; myGamePiece.gravity = 0
+	}
+
+	if (myGameArea.keys && myGameArea.keys[38]) {
+			myGamePiece.speedY = -1.5;myGamePiece.gravity = 0
+	}
+
+	if (myGameArea.keys && myGameArea.keys[40]) {
+			myGamePiece.speedY = 1.5;myGamePiece.gravity = 0 
+	}
+	
+	myGamePiece.newPos();    
+	myGamePiece.update();
+	
+}
+
 function everyinterval(n) {
     if ((myGameArea.frameNo / n) % 1 == 0) {
 		return true;
@@ -402,7 +364,7 @@ function drawFishes() {
 	
     //var img2 = new Image();
     //var img3 = new Image();
-    img.src= "resources/level_1/Kreis.png";
+    img.src= "resources/level_1/AnimationPS.gif";
    // img2.src="resources/level_3/fish-2.gif";
    // img3.src="resources/level_3/fish-3.gif"; 
 	ctx = myGameArea.context;
