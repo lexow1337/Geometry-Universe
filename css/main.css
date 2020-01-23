@@ -21,30 +21,20 @@ canvas {
     margin-top: 100px;
 }
 
-#game_over {
+#home, #level_complete, #game_over {
+	height: 520px;
+	width: 924px;
+	display: none;
 	position: absolute;
+	margin: 0 auto;
 	left: 10px;
-	top: 10px;
+	top: 100px;
 	bottom: 10px;
 	right: 10px;
-	display: none;
 	justify-content: center;
 	align-items: center;
-}
-#game_over.visible {
-	display: flex;
 }
 
-#level_complete {
-	position: absolute;
-	left: 10px;
-	top: 10px;
-	bottom: 10px;
-	right: 10px;
-	display: none;
-	justify-content: center;
-	align-items: center;
-}
-#level_complete.visible {
-	display: flex;
+#home.visible, #level_complete.visible, #game_over.visible {
+	display: block;
 }
