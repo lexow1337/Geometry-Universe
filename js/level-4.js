@@ -15,16 +15,22 @@ let spacePressed = false;
 let brickWidth = 75;
 let brickHeight = 20;
 let brickColumnCount = 4;
+let brickRowCount = 4;
 //let shipImg = new Image();
 let score = 0;
 let lives = 3;
 let bricks = [];
 let frameCount = 0;
 let lastShot = 100000;
+let brickCount = 0;
+
+for(let i = brickColumnCount; i > 0; i--){
+    brickCount += i;
+}
 
 for (let c = 0; c < brickColumnCount; c++) {
     bricks[c] = [];
-    for (let r = 0; r < 4; r++) {
+    for (let r = 0; r < brickRowCount; r++) {
         bricks[c][r] = {x: 0, y: 0, status: 1};
     }
 }
@@ -66,8 +72,8 @@ function drawShip() {
         }
     } else if (rightPressed) {
         shipX += 3;
-        if (shipX + shipWidth > canvas.width /** 0.4*/) {
-            shipX = canvas.width /** 0.4 */ - shipWidth;
+        if (shipX + shipWidth > canvas.width * 0.4) {
+            shipX = canvas.width * 0.4 - shipWidth;
         }
     }
     if (spacePressed && lastShot > 50) {
@@ -175,10 +181,10 @@ function collisionDetection() {
                     if (shot.x + shotWidth >= b.x && shot.x + shotWidth <= b.x + brickWidth && shot.y >= b.y && shot.y <= b.y + brickHeight || shot.x + shotWidth >= b.x && shot.x + shotWidth <= b.x + brickWidth && shot.y + shotHeight >= b.y && shot.y + shotHeight <= b.y + brickHeight) {
                         b.status = 0;
                         shot.status = 0;
-                        score += 5;
-                        if (score === 50) {
+                        score += 10;
+                        if (score === 10 * brickCount) {
                             setTimeout(function () {
-                                alert(score + " Points. You win!");
+                                alert("You defeated all enemies. You win!");
                                 document.location.reload();
                             }, 10);
                         }
