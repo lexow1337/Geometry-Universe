@@ -29,11 +29,11 @@ function init() {
     character = { img: new Image(), posX:200, posY: 200, shooting: false, hp: 1000, speed: 300};
     shot = { img: new Image(), posX: 0, posY: 0, dirX: 0, dirY: 0, speed: 600 };
     //Die benötigten Bilder werden jeweils den passenden Variablen zugeordnet.//
-    backgroundImg.src = '/resources/level_2/Hintergrund.png';
-    character.img.src = '/resources/level_2/Spielcharacter.png';
-    shot.img.src = '/resources/level_2/Schuss.png';
-    enemyImg.src = '/resources/level_2/Gegner.png';
-    enemyDeadImg.src = '/resources/level_2/Splosion11.png';
+    backgroundImg.src = 'resources/level_2/Hintergrund.png';
+    character.img.src = 'resources/level_2/Spielcharacter.png';
+    shot.img.src = 'resources/level_2/Schuss.png';
+    enemyImg.src = 'resources/level_2/Gegner.png';
+    enemyDeadImg.src = 'resources/level_2/Splosion11.png';
     planetImg.src = 'resources/level_2/Planetenoberflaeche1.png';
     //Die Funktion zum generieren von Gegnern wird aufgerufen.//    
     generateEnemies();
@@ -41,7 +41,9 @@ function init() {
     window.addEventListener("keydown", function (e) { keysDown[e.keyCode] = true; }, false);
     window.addEventListener("keyup", function (e) { delete keysDown[e.keyCode]; }, false);
     window.addEventListener("click", shoot, false);
+    
 }
+
 //Funktion zum gernerieren von Gegnern//
 function generateEnemies() {
     // jedes mal wenn die Funktionaufgerufen wird ein Level erhöht//
@@ -76,7 +78,11 @@ function shoot(e) {
 	shot.dirX = Math.cos(angle);
     shot.dirY = Math.sin(angle);
     
-    if(character.shooting) document.getElementById("shot").play();
+        if(character.shooting) {
+        document.getElementById("shot").play();
+    }
+    
+
 }
 
 
@@ -191,6 +197,7 @@ function draw() {
             ctx.font = "100px Agency FB";
             ctx.fillStyle ='rgb(75, 181, 215)'
             ctx.fillText("Game Over", 220, 100);
+            document.getElementById("death").play();
         }
 }
 function mouse(e) 
