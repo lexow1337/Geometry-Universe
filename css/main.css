@@ -16,7 +16,7 @@ body {
 
 canvas {
     background-color: #6BCEFF; 
-    display: block; 
+    display: block;
     margin: 0 auto;
     margin-top: 100px;
 }
@@ -52,4 +52,9 @@ canvas {
 	font-size: 29px;
 	height: 300px;
 	width: 800px;
+}
+#button_home{
+	position: absolute;
+	right: 10px;
+	top: 10px;
 }

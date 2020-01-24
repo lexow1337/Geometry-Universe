@@ -1,5 +1,6 @@
 let canvas = document.getElementById("myCanvas");
 let ctx = canvas.getContext("2d");
+let shipImg = document.getElementById("../resources/level_4/ship.png");
 let shipWidth = 50;
 let shipHeight = 20;
 let shipX = 50;
@@ -41,9 +42,9 @@ function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     drawBricks();
     drawShip();
-    drawShots();
+    drawShotsShip();
     collisionDetection();
-    drawLives();
+    //drawLives();
     drawScore();
 }
 
@@ -104,7 +105,7 @@ function drawBricks() {
     }
 }
 
-function drawShots() {
+function drawShotsShip() {
     for (let i = 0; i < shots.length; i++) {
         if(shots[i].status === 0){
             continue;
