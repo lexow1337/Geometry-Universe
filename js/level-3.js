@@ -96,12 +96,27 @@ function drawFishes() {
     var img = new Image();
     var img2 = new Image();
     var img3 = new Image();
+    var img4 = new Image();
+    var img5 = new Image();
+    var img6 = new Image();
+    
     img.src="resources/level_3/fish-1.gif"
     img2.src="resources/level_3/fish-2.gif";
     img3.src="resources/level_3/fish-3.gif"; 
+    img4.src="resources/level_3/fish-4.gif"
+    img5.src="resources/level_3/fish-5.gif";
+    img6.src="resources/level_3/fish-6.gif"; 
+    
     ctx.drawImage(img, bx, by)
     ctx.drawImage(img2, bx-10, by+150, 150, 150) 
     ctx.drawImage(img3, bx+30, by+200) 
+    
+    ctx.drawImage(img, bx-580, by+150)
+    ctx.drawImage(img5, bx-620, by+350, 150, 150) 
+    
+    ctx.drawImage(img4, bx-1030, by+60, 200, 200)
+    ctx.drawImage(img5, bx-1070, by+260) 
+    ctx.drawImage(img6, bx-1000, by+230, 150, 150) 
     
 }
 
@@ -158,7 +173,7 @@ function draw() {
     collisionDetection();
     drawBricks();
     drawFishes();
-    if(counter%1000 == 0) {
+    if(counter%1200 == 0) {
         bx = -300;
         by=0;
     }
