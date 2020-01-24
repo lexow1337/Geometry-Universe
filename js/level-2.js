@@ -11,7 +11,6 @@ var enemyDeadImg = new Image();
 var planetImg = new Image();
 
 var character = null;
-var fireball = null;
 
 var enemies = new Array();
 var keysDown = {};
@@ -29,12 +28,12 @@ function init() {
     character = { img: new Image(), posX:200, posY: 200, shooting: false, hp: 1000, speed: 300};
     shot = { img: new Image(), posX: 0, posY: 0, dirX: 0, dirY: 0, speed: 600 };
     //Die benötigten Bilder werden jeweils den passenden Variablen zugeordnet.//
-    backgroundImg.src = 'resources/level_2/Hintergrund.png';
-    character.img.src = 'resources/level_2/Spielcharacter.png';
-    shot.img.src = 'resources/level_2/Schuss.png';
-    enemyImg.src = 'resources/level_2/Gegner.png';
-    enemyDeadImg.src = 'resources/level_2/Splosion11.png';
-    planetImg.src = 'resources/level_2/Planetenoberflaeche1.png';
+    backgroundImg.src = "resources/level_2/Hintergrund.png";
+    character.img.src = "resources/level_2/Spielcharacter.png";
+    shot.img.src = "resources/level_2/Schuss.png";
+    enemyImg.src = "resources/level_2/Gegner.png";
+    enemyDeadImg.src = "resources/level_2/Splosion11.png";
+    planetImg.src = "resources/level_2/Planetenoberflaeche1.png";
     //Die Funktion zum generieren von Gegnern wird aufgerufen.//    
     generateEnemies();
     // Die Eingabe-Ereignisse verden Eventlistenern Variablen zugeordent//
