@@ -38,3 +38,18 @@ canvas {
 #home.visible, #level_complete.visible, #game_over.visible {
 	display: block;
 }
+
+#story_div{
+	background-color: #438b3b;
+	position: absolute;
+	left: 60px;
+	right: 60px;
+	top: 50px;
+}
+
+#story_text{
+	color: black;
+	font-size: 29px;
+	height: 300px;
+	width: 800px;
+}
