@@ -1,5 +1,5 @@
 body{
-    background-image: url(/resources/background-all.jpg);
+    background-image: url('../resources/background-all.jpg');
     background-size: cover;
     background-repeat: no-repeat;
     user-select: none;
