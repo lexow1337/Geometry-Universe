@@ -15,6 +15,7 @@ let rightPressed = false;
 let spacePressed = false;
 let brickWidth = 75;
 let brickHeight = 20;
+let shotsBricks = [];
 let brickColumnCount = 4;
 let brickRowCount = 4;
 let score = 0;
@@ -22,9 +23,10 @@ let lives = 3;
 let bricks = [];
 let frameCount = 0;
 let lastShot = 100000;
+let lastShotBricks = -5000;
 let brickCount = 0;
 
-for(let i = brickColumnCount; i > 0; i--){
+for (let i = brickColumnCount; i > 0; i--) {
     brickCount += i;
 }
 
@@ -43,7 +45,9 @@ function draw() {
     drawBricks();
     drawShip();
     drawShotsShip();
-    collisionDetection();
+    drawShotsBricks();
+    collisionWithBricks();
+    collisionWithShip();
     //drawLives();
     drawScore();
 }
@@ -82,7 +86,7 @@ function drawShip() {
     lastShot++;
     ctx.beginPath();
     ctx.rect(shipX, shipY, shipWidth, shipHeight);
-    ctx.fillStyle = "#307dff";
+    ctx.fillStyle = "#FFC717";
     ctx.fill();
     ctx.closePath();
 }
@@ -100,6 +104,15 @@ function drawBricks() {
                 ctx.fillStyle = "#ff4262";
                 ctx.fill();
                 ctx.closePath();
+                if (lastShotBricks > 100) {
+                    shotsBricks.push({
+                        x: brickX,
+                        y: brickY + shipHeight / 2 - shotHeight / 2,
+                        status: 1
+                    });
+                    lastShotBricks = 0;
+                }
+                lastShotBricks++;
             }
         }
     }
@@ -107,12 +120,26 @@ function drawBricks() {
 
 function drawShotsShip() {
     for (let i = 0; i < shots.length; i++) {
-        if(shots[i].status === 0){
+        if (shots[i].status === 0) {
             continue;
         }
-        shots[i].x = shots[i].x + 3;
+        shots[i].x = shots[i].x + 5;
         ctx.beginPath();
         ctx.rect(shots[i].x, shots[i].y, shotWidth, shotHeight);
+        ctx.fillStyle = "#ff0db4";
+        ctx.fill();
+        ctx.closePath();
+    }
+}
+
+function drawShotsBricks() {
+    for (let i = 0; i < shotsBricks.length; i++) {
+        if (shotsBricks[i].status === 0) {
+            continue;
+        }
+        shotsBricks[i].x = shotsBricks[i].x - 3;
+        ctx.beginPath();
+        ctx.rect(shotsBricks[i].x, shotsBricks[i].y, shotWidth, shotHeight);
         ctx.fillStyle = "#ff0db4";
         ctx.fill();
         ctx.closePath();
@@ -163,14 +190,14 @@ function drawLives() {
     ctx.fillText("Lives: " + lives, canvas.width - 65, 20);
 }
 
-function collisionDetection() {
+function collisionWithBricks() {
     for (let column = 0; column < brickColumnCount; column++) {
         for (let row = 0; row <= column; row++) {
             let b = bricks[column][row];
             if (b.status === 1) {
                 for (let i = 0; i < shots.length; i++) {
                     let shot = shots[i];
-                    if(shot.status === 0){
+                    if (shot.status === 0) {
                         continue;
                     }
                     if (shot.x + shotWidth >= b.x && shot.x + shotWidth <= b.x + brickWidth && shot.y >= b.y && shot.y <= b.y + brickHeight || shot.x + shotWidth >= b.x && shot.x + shotWidth <= b.x + brickWidth && shot.y + shotHeight >= b.y && shot.y + shotHeight <= b.y + brickHeight) {
@@ -179,13 +206,28 @@ function collisionDetection() {
                         score += 10;
                         if (score === 10 * brickCount) {
                             setTimeout(function () {
-                                alert("You defeated all enemies. You win!");
+                                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                                alert("You win");
                                 document.location.reload();
                             }, 10);
                         }
                     }
                 }
             }
+        }
+    }
+}
+
+function collisionWithShip() {
+    for (let i = 0; i < shotsBricks.length; i++) {
+        let shot = shotsBricks[i];
+        if (shot.x <= shipX + shipWidth && shot.x >= shipX && shot.y >= shipY && shot.y <= shipY + shipHeight/* || shot.x + shotWidth >= b.x && shot.x + shotWidth <= b.x + brickWidth && shot.y + shotHeight >= b.y && shot.y + shotHeight <= b.y + brickHeight*/) {
+            setTimeout(function () {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                alert("You lose");
+                document.location.reload();
+            }, 10);
+
         }
     }
 }
