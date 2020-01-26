@@ -23,7 +23,7 @@ let lives = 3;
 let bricks = [];
 let frameCount = 0;
 let lastShot = 100000;
-let lastShotBricks = -5000;
+let lastShotBricks = -300;
 let brickCount = 0;
 
 for (let i = brickColumnCount; i > 0; i--) {
