@@ -29,7 +29,7 @@ canvas#level_3 {
 }
 
 canvas#level_4 {
-    background: #eee; 
+    background: #001133;
 }
 
 #home, #level_complete, #game_over {
@@ -61,16 +61,31 @@ canvas#level_4 {
 }
 
 #story_div{
-	background-color: #438b3b;
+	text-align: center;
 	position: absolute;
 	left: 60px;
 	right: 60px;
 	top: 50px;
 }
 
+#win_div{
+	text-align: center;
+	position: absolute;
+	left: 60px;
+	right: 60px;
+	top: 170px;
+}
+
 #story_text{
 	color: black;
-	font-size: 25px;
+	font-size: 30px;
+	height: 285px;
+	width: 800px;
+}
+
+#story_text_4{
+	color: black;
+	font-size: 26px;
 	height: 280px;
 	width: 800px;
 }
