@@ -321,6 +321,9 @@ function move(){
 			myGamePiece.speedY = 1.5;myGamePiece.gravity = 0 
 	}
 	
+    if(myGameArea.keys && myGameArea.keys[38]) {
+        document.getElementById("cave").play()
+    }
 	myGamePiece.newPos();    
 	myGamePiece.update();
 	
