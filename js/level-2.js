@@ -192,7 +192,7 @@ function draw() {
     // Durch ein Bild dargestellt//
     ctx.drawImage(planetImg, centerX, centerY)
     
-    if(level == 2) {
+    if(level == 11) {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         document.getElementById("level_complete").classList.add("visible");  
         clearInterval(interval); // Needed for Chrome to end game
