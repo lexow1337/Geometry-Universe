@@ -1,5 +1,5 @@
 //Variablen-Deklaration 
-var canvas = document.getElementById("myCanvas"); //Canvas mit ID einlesen 
+var canvas = document.getElementById("level_3"); //Canvas mit ID einlesen 
 var ctx = canvas.getContext("2d"); //Canvas Render Context = 2D -> hiermit wird spaeter auf auf dem Canvas gezeichnet 
 var ballRadius = 10; 
 var x = canvas.width/2;
