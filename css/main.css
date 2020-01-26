@@ -49,12 +49,18 @@ canvas {
 
 #story_text{
 	color: black;
-	font-size: 29px;
-	height: 300px;
+	font-size: 25px;
+	height: 280px;
 	width: 800px;
 }
 #button_home{
 	position: absolute;
 	right: 10px;
 	top: 10px;
+}
+
+#controls{
+	position: absolute;
+	bottom: 60px;
+	left: 80px;
 }
