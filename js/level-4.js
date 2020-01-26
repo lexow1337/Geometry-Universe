@@ -1,4 +1,4 @@
-let canvas = document.getElementById("myCanvas");
+let canvas = document.getElementById("level_4");
 let ctx = canvas.getContext("2d");
 let shipImg = document.getElementById("../resources/level_4/ship.png");
 let shipWidth = 50;
@@ -206,9 +206,12 @@ function collisionWithBricks() {
                         score += 10;
                         if (score === 10 * brickCount) {
                             setTimeout(function () {
+//                                ctx.clearRect(0, 0, canvas.width, canvas.height);
+//                                alert("You win");
+//                                document.location.reload();
                                 ctx.clearRect(0, 0, canvas.width, canvas.height);
-                                alert("You win");
-                                document.location.reload();
+                                document.getElementById("level_complete").classList.add("visible");  
+                                clearInterval(interval); // Needed for Chrome to end game
                             }, 10);
                         }
                     }
@@ -223,9 +226,12 @@ function collisionWithShip() {
         let shot = shotsBricks[i];
         if (shot.x <= shipX + shipWidth && shot.x >= shipX && shot.y >= shipY && shot.y <= shipY + shipHeight/* || shot.x + shotWidth >= b.x && shot.x + shotWidth <= b.x + brickWidth && shot.y + shotHeight >= b.y && shot.y + shotHeight <= b.y + brickHeight*/) {
             setTimeout(function () {
+//                ctx.clearRect(0, 0, canvas.width, canvas.height);
+//                alert("You lose");
+//                document.location.reload();
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
-                alert("You lose");
-                document.location.reload();
+                document.getElementById("game_over").classList.add("visible");  
+                clearInterval(interval); // Needed for Chrome to end game
             }, 10);
 
         }

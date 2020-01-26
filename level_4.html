@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
 </head>
 <body>
-<canvas id="myCanvas" width="924px" height="520px"></canvas>
+<canvas id="level_4" width="924px" height="520px"></canvas>
 
     <div id="home" class="visible">
 
@@ -14,6 +14,20 @@
 
         <map name="image_map_button_home">
             <area alt="home" title="Home" href="game.html" coords="0,0,40,40" shape="rect">
+        </map>
+    </div>
+        
+    <div id="game_over">
+        <img src="resources/Game-Over.png" height="520px" width="924px" usemap="#over">
+        <map name="over">
+          <area alt="gameover" title="gameover" href="level_4.html" coords="239,134,658,307" shape="rect">
+        </map>
+    </div>
+
+    <div id="level_complete">
+        <img src="resources/Level-Complete.png" height="520px" width="924px" usemap="#complete">
+        <map name="complete">
+          <area alt="levelcomplete" title="levelcomplete" href="game.html" coords="239,134,658,307" shape="rect">
         </map>
     </div>
 <script src="js/level-4.js"></script>

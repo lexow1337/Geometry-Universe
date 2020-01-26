@@ -28,6 +28,10 @@ canvas#level_3 {
     background-color: #6BCEFF; 
 }
 
+canvas#level_4 {
+    background: #eee; 
+}
+
 #home, #level_complete, #game_over {
 	height: 520px;
 	width: 924px;
@@ -44,7 +48,6 @@ canvas#level_3 {
 
 #home.visible {
 	display: block;
-    background-color: #6BCEFF;
 }
 
 #game_over.visible {
@@ -71,6 +74,7 @@ canvas#level_3 {
 	height: 280px;
 	width: 800px;
 }
+
 #button_home{
 	position: absolute;
 	right: 10px;
