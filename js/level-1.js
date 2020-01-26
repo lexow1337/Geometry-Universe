@@ -25,6 +25,7 @@ var myGameArea = {
     start : function() {
         this.canvas.width = 924; //Ändern und funktionen etc angleichen 480
         this.canvas.height = 520; //270
+        this.canvas.id = "level_1"
         this.context = this.canvas.getContext("2d");
         document.body.insertBefore(this.canvas, document.body.childNodes[0]);
         this.frameNo = 0;
@@ -126,8 +127,10 @@ function updateGameArea() {
     for (i = 0; i < myObstacles.length; i += 1) { 
         if (myGamePiece.crashWith(myObstacles[i])) {
 			//könnte fehler machen 
-			alert("GAME OVER");
-            document.location.reload();
+//			alert("GAME OVER");
+//            document.location.reload(); 
+            ctx.clearRect(0, 0, 924, 520);
+            document.getElementById("game_over").classList.add("visible"); 
             clearInterval(interval); 
             return;
         } 
@@ -138,8 +141,10 @@ function updateGameArea() {
 	drawFishes();
 	
 	if (myDistance == 0){
-			alert("Sie haben Ihr Ziel Erreicht");
-            document.location.reload();
+//			alert("Sie haben Ihr Ziel Erreicht");
+//            document.location.reload();
+            ctx.clearRect(0, 0, 924, 520);
+            document.getElementById("level_complete").classList.add("visible"); 
             clearInterval(interval); 
             return;
         } 
@@ -367,7 +372,7 @@ function drawFishes() {
 	
     //var img2 = new Image();
     //var img3 = new Image();
-    img.src= "resources/level_1/AnimationPS.gif";
+//    img.src= "resources/level_1/AnimationPS.gif";
    // img2.src="resources/level_3/fish-2.gif";
    // img3.src="resources/level_3/fish-3.gif"; 
 	ctx = myGameArea.context;

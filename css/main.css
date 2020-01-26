@@ -14,11 +14,18 @@ body {
   background-size: cover;
 }
 
-canvas {
-    background-color: #6BCEFF; 
+canvas { 
     display: block;
     margin: 0 auto;
     margin-top: 100px;
+}
+
+canvas#level_1 {
+    background-image: url('../resources/level_1/Background-Level1.jpg');
+}
+
+canvas#level_3 {
+    background-color: #6BCEFF; 
 }
 
 #home, #level_complete, #game_over {
