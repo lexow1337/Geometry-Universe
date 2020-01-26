@@ -191,12 +191,22 @@ function draw() {
     }
     // Durch ein Bild dargestellt//
     ctx.drawImage(planetImg, centerX, centerY)
+    
+    if(level == 2) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        document.getElementById("level_complete").classList.add("visible");  
+        clearInterval(interval); // Needed for Chrome to end game
+    }
+    
     if(character.hp <= 0)
         {
-            ctx.font = "100px Agency FB";
-            ctx.fillStyle ='rgb(75, 181, 215)'
-            ctx.fillText("Game Over", 220, 100);
-            document.getElementById("death").play();
+//            ctx.font = "100px Agency FB";
+//            ctx.fillStyle ='rgb(75, 181, 215)'
+//            ctx.fillText("Game Over", 220, 100);
+//            document.getElementById("death").play();
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            document.getElementById("game_over").classList.add("visible");  
+            clearInterval(interval); // Needed for Chrome to end game
         }
 }
 function mouse(e) 

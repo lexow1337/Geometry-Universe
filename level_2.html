@@ -2,8 +2,8 @@
 <html>
     <head>
         <link rel="favicon" href="../resources/level_2/favicon.ico">
-        <link rel="stylesheet" href="css/level_2.css">
-        <link rel="stylesheet2" href="css/main.css">
+<!--        <link rel="stylesheet" href="css/level_2.css">-->
+        <link rel="stylesheet" href="css/main.css">
         <title>Level 2</title>
     </head>
     <body>
@@ -12,6 +12,21 @@
         <audio id="space" src="resources/level_2/space.mp3"></audio>
         <audio id="shot" src="resources/level_2/shot1.mp3"></audio>
         <audio id="death" src="resources/level_2/death.wav"></audio>
+        
+        <div id="level_complete">
+		<img src="resources/Level-Complete.png" height="520px" width="924px" usemap="#complete">
+		<map name="complete">
+		  <area alt="levelcomplete" title="levelcomplete" href="story/level_3_story.html" coords="239,134,658,307" shape="rect">
+		</map>
+        </div>
+        
+        <div id="game_over">
+		<img src="resources/Game-Over.png" height="520px" width="924px" usemap="#over">
+		<map name="over">
+		  <area alt="gameover" title="gameover" href="level_2.html" coords="239,134,658,307" shape="rect">
+		</map>
+        </div>
+        
     </body>
 </html>
 

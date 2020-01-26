@@ -42,8 +42,19 @@ canvas#level_3 {
 	align-items: center;
 }
 
-#home.visible, #level_complete.visible, #game_over.visible {
+#home.visible {
 	display: block;
+    background-color: #6BCEFF;
+}
+
+#game_over.visible {
+    display: block;
+    background-color: #6BCEFF;
+}
+
+#level_complete.visible {
+    display: block;
+    background-color: #6BCEFF;
 }
 
 #story_div{
