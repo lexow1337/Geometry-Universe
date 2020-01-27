@@ -129,6 +129,7 @@ function logic(frametime) {
             {
                 character.shooting = false;        
             }
+           
         }
     //Wenn im Gegner Array nichts mehr vorhanden ist werden neue Gegner generiert//
 
@@ -172,6 +173,8 @@ function draw() {
     ctx.font = "20px Agency FB";
     ctx.fillStyle = 'rgb(200, 200, 200)';
     ctx.fillText("Wave: " + level, 20, 30);
+    ctx.fillText("Level 2",850,30)
+    ctx.fillText("Angriff der Ersianner",390,30)
     ctx.fillText("Score: " + score, 20, 60);
     ctx.fillText("HP: " + Math.ceil(character.hp), 20, 90);
     // Wenn die HP unter 300 sinkt wird der Balken Rot eingefärbt//
@@ -200,10 +203,6 @@ function draw() {
     
     if(character.hp <= 0)
         {
-//            ctx.font = "100px Agency FB";
-//            ctx.fillStyle ='rgb(75, 181, 215)'
-//            ctx.fillText("Game Over", 220, 100);
-//            document.getElementById("death").play();
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             document.getElementById("game_over").classList.add("visible");  
             clearInterval(interval); // Needed for Chrome to end game
@@ -216,6 +215,21 @@ function mouse(e)
      canvasY = Math.round(e.clientY - cRect.top);
     
 }
+function borders() {
+     if(character.posX < 0) {
+        character.posX = 0;
+            }
+    if(character.posY < 0) {
+       character.posY = 0; 
+    }
+    if(character.posX +32 > canvas.width) {
+        character.posX = canvas.width - 32;
+    }
+    if(character.posY +32 > canvas.height) {
+        character.posY = canvas.height -32;
+    }
+    
+}
 
 function gameLoop() {
     var now = Date.now();
@@ -223,6 +237,7 @@ function gameLoop() {
     
     logic(frametime);
     draw();
+    borders();
     
     frametimeBefore = now;   
 }
