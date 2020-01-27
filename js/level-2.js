@@ -173,8 +173,7 @@ function draw() {
     ctx.font = "20px Agency FB";
     ctx.fillStyle = 'rgb(200, 200, 200)';
     ctx.fillText("Wave: " + level, 20, 30);
-    ctx.fillText("Level 2",850,30)
-    ctx.fillText("Angriff der Ersianner",390,30)
+    ctx.fillText("Angriff der Ersianner",390,30);
     ctx.fillText("Score: " + score, 20, 60);
     ctx.fillText("HP: " + Math.ceil(character.hp), 20, 90);
     // Wenn die HP unter 300 sinkt wird der Balken Rot eingefärbt//

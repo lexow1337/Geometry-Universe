@@ -86,7 +86,7 @@ function drawScore() {
     ctx.fillText("Score: "+score, 50, 20);
     ctx.font = "16px Arial";
     ctx.fillStyle = "#0095DD"
-    ctx.fillText("Level 3", canvas.width/2, 20);
+    ctx.fillText("Die Untiefen von Birniemar", canvas.width/2, 20);
     ctx.textAlign = "center";
 }
 
