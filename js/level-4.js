@@ -48,7 +48,6 @@ function draw() {
     drawShotsBricks();
     collisionWithBricks();
     collisionWithShip();
-    //drawLives();
     drawScore();
 }
 
@@ -179,9 +178,14 @@ function keyUpHandler(e) {
 }
 
 function drawScore() {
-    ctx.font = "16px Arial";
-    ctx.fillStyle = "#008000";
-    ctx.fillText("Score: " + score, 8, 20);
+    ctx.font = "20px Agency FB";
+    ctx.fillStyle = "#0095DD";
+    ctx.fillText("Score: " + score, 50, 20);
+    ctx.font = "20px Agency FB";
+    ctx.fillStyle = "#0095DD";
+    ctx.fillText("Die Wächter des Universums", canvas.width/2, 20);
+    ctx.textAlign = "center";
+
 }
 
 function drawLives() {
