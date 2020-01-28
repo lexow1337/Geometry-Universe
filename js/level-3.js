@@ -81,11 +81,11 @@ function collisionDetection() {
 
 //Zeichnen des Scoreboards
 function drawScore() {
-    ctx.font = "16px Arial";
-    ctx.fillStyle = "#0095DD";
+    ctx.font = "20px Agency FB";
+    ctx.fillStyle = "#ffffff";
     ctx.fillText("Score: "+score, 50, 20);
-    ctx.font = "16px Arial";
-    ctx.fillStyle = "#0095DD"
+    ctx.font = "20px Ageny FB";
+    ctx.fillStyle = "#ffffff"
     ctx.fillText("Die Untiefen von Birniemar", canvas.width/2, 20);
     ctx.textAlign = "center";
 }
