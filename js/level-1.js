@@ -25,7 +25,7 @@ var myGameArea = {
     start : function() {
         this.canvas.width = 924; //Ändern und funktionen etc angleichen 480
         this.canvas.height = 520; //270
-        this.canvas.id = "level_1"
+        this.canvas.id = "level_1";
         this.context = this.canvas.getContext("2d");
         document.body.insertBefore(this.canvas, document.body.childNodes[0]);
         this.frameNo = 0;
