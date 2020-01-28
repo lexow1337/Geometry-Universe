@@ -33,6 +33,10 @@ let score = 0;
 let lastShot = 100000;
 //time between shots of enemies
 let lastShotBricks = -300;
+//enemy shot speed; increases for every enemy killed
+let brickShotSpeed = 3;
+//the ship is not allowed to fly past x = 0.4 * canvas.height; increases when enemies are defeated
+let barrierPosition = 0.4;
 //number of enemies
 let brickCount = 0;
 //enemies getting counted
@@ -58,8 +62,9 @@ function draw() {
     drawShip();
     drawShotsShip();
     drawShotsBricks();
-    collisionWithBricks();
-    collisionWithShip();
+    collisionShotWithBricks();
+    collisionShotWithShip();
+    collisionShipWithBricks();
     drawScore();
 }
 
@@ -70,7 +75,7 @@ function drawShip() {
         if (shipY < 0) {
             shipY = 0;
         }
-    //moves the ship down when pressed 's'
+        //moves the ship down when pressed 's'
     } else if (downPressed) {
         shipY += 3;
         if (shipY + shipHeight > canvas.height) {
@@ -83,11 +88,11 @@ function drawShip() {
         if (shipX < 0) {
             shipX = 0;
         }
-    //moves the ship right when pressed 'd'
+        //moves the ship right when pressed 'd'
     } else if (rightPressed) {
         shipX += 3;
-        if (shipX + shipWidth > canvas.width * 0.4) {
-            shipX = canvas.width * 0.4 - shipWidth;
+        if (shipX + shipWidth > canvas.width * barrierPosition) {
+            shipX = canvas.width * barrierPosition - shipWidth;
         }
     }
     //ship shoots when pressed space; 30 ist the time between two shots in (30 --> 3 ms)
@@ -103,8 +108,8 @@ function drawShip() {
         //resets lastShot after every shot
         lastShot = 0;
     }
-    if (downPressed || rightPressed || leftPressed || upPressed || spacePressed) {
     //starts playing background music
+    if (downPressed || upPressed || leftPressed || rightPressed || spacePressed) {
         document.getElementById("spaceBack").play();
     }
     //increases lastShot number, to build up next shot
@@ -177,7 +182,7 @@ function drawShotsBricks() {
             continue;
         }
         //draws shot of enemies; 3 is for speed
-        shotsBricks[i].x = shotsBricks[i].x - 3;
+        shotsBricks[i].x = shotsBricks[i].x - brickShotSpeed;
         ctx.beginPath();
         ctx.rect(shotsBricks[i].x, shotsBricks[i].y, shotWidth, shotHeight);
         ctx.fillStyle = "#ff0db4";
@@ -202,6 +207,7 @@ function keyDownHandler(e) {
         spacePressed = true;
     }
 }
+
 //when the key is released sets boolean to false
 function keyUpHandler(e) {
     if (e.key === "\w" || e.key === "\W") {
@@ -227,12 +233,12 @@ function drawScore() {
     ctx.fillText("Score: " + score, 50, 20);
     ctx.font = "20px Agency FB";
     ctx.fillStyle = "#0095DD";
-    ctx.fillText("Die Wächter des Universums", canvas.width/2, 20);
+    ctx.fillText("Die Wächter des Universums", canvas.width / 2, 20);
     ctx.textAlign = "center";
 }
 
 //collision detection shipShot and enemy
-function collisionWithBricks() {
+function collisionShotWithBricks() {
     //iterates through enemies array and compares every enemies position with shot (of ship) position
     for (let column = 0; column < brickColumnCount; column++) {
         for (let row = 0; row <= column; row++) {
@@ -253,11 +259,15 @@ function collisionWithBricks() {
                         b.status = 0;
                         shot.status = 0;
                         score += 10;
+                        //enemy shot speed increases if enemy is defeated
+                        brickShotSpeed += 0.2;
+                        //increases the x value that the ship can reach at max
+                        barrierPosition += 0.04;
                         //if all enemies are defeated show 'level complete' screen
                         if (score === 10 * brickCount) {
                             setTimeout(function () {
                                 ctx.clearRect(0, 0, canvas.width, canvas.height);
-                                document.getElementById("level_complete").classList.add("visible");  
+                                document.getElementById("level_complete").classList.add("visible");
                                 clearInterval(interval); // Needed for Chrome to end game
                             });
                         }
@@ -269,7 +279,7 @@ function collisionWithBricks() {
 }
 
 //collision detection enemy shots and ship
-function collisionWithShip() {
+function collisionShotWithShip() {
     //iterates through enemies shot array and compares every shots position with ship position
     for (let i = 0; i < shotsBricks.length; i++) {
         //variable for comfort and less writing
@@ -284,6 +294,30 @@ function collisionWithShip() {
                 clearInterval(interval);
             });
 
+        }
+    }
+}
+
+function collisionShipWithBricks() {
+    //iterates through enemies array and compares every enemies position with ship position
+    for (let column = 0; column < brickColumnCount; column++) {
+        for (let row = 0; row <= column; row++) {
+            //variable for comfort and less writing
+            let b = bricks[column][row];
+            //only detects collision if the enemies brick is drawn
+            if (b.status === 1) {
+                //compares the position of every corners of the ship with the enemies position
+                if (shipX <= b.x + brickWidth && shipX >= b.x && shipY >= b.y && shipY <= b.y + brickHeight || shipX + shipWidth >= b.x && shipX + shipWidth <= b.x + brickWidth && shipY >= b.y && shipY <= b.y + brickHeight || shipX >= b.x && shipX <= b.x + brickWidth && shipY + shipHeight >= b.y && shipY + shipHeight <= b.x + brickHeight || shipX + shipWidth >= b.x && shipX + shipWidth <= b.x + brickWidth && shipY + shipHeight >= b.y && shipY + shipHeight <= b.x + brickHeight) {
+                    //game over screen if ship hits an enemy
+                    setTimeout(function () {
+                        ctx.clearRect(0, 0, canvas.width, canvas.height);
+                        document.getElementById("game_over").classList.add("visible");
+                        // Needed for Chrome to end game
+                        clearInterval(interval);
+                    });
+
+                }
+            }
         }
     }
 }
