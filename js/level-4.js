@@ -33,6 +33,8 @@ let score = 0;
 let lastShot = 100000;
 //time between shots of enemies
 let lastShotBricks = -300;
+//enemy shot speed; increases for every enemy killed
+let brickShotSpeed = 3;
 //number of enemies
 let brickCount = 0;
 //enemies getting counted
@@ -104,7 +106,7 @@ function drawShip() {
         lastShot = 0;
     }
     //starts playing background music
-    if (downPressed) {
+    if (downPressed || upPressed || leftPressed || rightPressed || spacePressed) {
         document.getElementById("spaceBack").play();
     }
     //increases lastShot number, to build up next shot
@@ -177,7 +179,7 @@ function drawShotsBricks() {
             continue;
         }
         //draws shot of enemies; 3 is for speed
-        shotsBricks[i].x = shotsBricks[i].x - 3;
+        shotsBricks[i].x = shotsBricks[i].x - brickShotSpeed;
         ctx.beginPath();
         ctx.rect(shotsBricks[i].x, shotsBricks[i].y, shotWidth, shotHeight);
         ctx.fillStyle = "#ff0db4";
@@ -253,6 +255,8 @@ function collisionWithBricks() {
                         b.status = 0;
                         shot.status = 0;
                         score += 10;
+                        //enemy shot speed increases if enemy is defeated
+                        brickShotSpeed += 0.2;
                         //if all enemies are defeated show 'level complete' screen
                         if (score === 10 * brickCount) {
                             setTimeout(function () {
