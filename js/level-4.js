@@ -82,6 +82,9 @@ function drawShip() {
         });
         lastShot = 0;
     }
+    if (downPressed) {
+        document.getElementById("spaceBack").play();
+    }
     lastShot++;
     ctx.beginPath();
     ctx.rect(shipX, shipY, shipWidth, shipHeight);
@@ -185,7 +188,6 @@ function drawScore() {
     ctx.fillStyle = "#0095DD";
     ctx.fillText("Die Wächter des Universums", canvas.width/2, 20);
     ctx.textAlign = "center";
-
 }
 
 function drawLives() {
