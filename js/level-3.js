@@ -22,29 +22,39 @@ var brickOffsetLeft = 250;
 
 var score = 0; 
 
+//Richtungsvariablen der Fische
+//bx und by Startposition
 var bx = -30;
 var by = 30;
 var fx = 2
 var fy = 0
 
+//Audio files
+var soundtrack = new Audio('resources/level_3/Underwater-Sound.mp3');
+var impact1 = new Audio('resources/level_3/impact1.mp3');
+var impact2 = new Audio('resources/level_3/impact2.mp3');
 
+//Initialisieren des brick Arrays
 var bricks = [];
 for(var c=0; c<brickColumnCount; c++) {
     bricks[c] = [];
     for(var r=0; r<brickRowCount; r++) {
-        bricks[c][r] = { x: 0, y: 0, status: 1 }; //2D Array wird erstellt
+        bricks[c][r] = { x: 0, y: 0, status: 1 }; 
     }
 }
 
+//Event keydown/up triggert key...Hanlder functions
 document.addEventListener("keydown", keyDownHandler, false);
 document.addEventListener("keyup", keyUpHandler, false);
     
 function keyDownHandler(e) {
     if(e.key == "Right" || e.key == "ArrowRight") {
         rightPressed = true;
+        soundtrack.play();
     }
     else if(e.key == "Left" || e.key == "ArrowLeft") {
         leftPressed = true;
+        soundtrack.play();
     }
 }
 
@@ -57,18 +67,22 @@ function keyUpHandler(e) {
     }
 }
 
+//Kollision wenn position des Balls 
 function collisionDetection() {
+    //Bricks Iterieren
     for(var c=0; c<brickColumnCount; c++) {
         for(var r=0; r<brickRowCount; r++) {
             var b = bricks[c][r];
             if(b.status == 1) {
+                //Wenn Ball sich an Pos eines Bricks befindet
                 if(x > b.x && x < b.x+brickWidth && y > b.y && y < b.y+brickHeight) {
+                    //Richtung des Balls aendern
                     dy = -dy;
+                    //Brick entfernen
                     b.status = 0;
+                    impact1.play();
                     score++;
                     if(score == brickRowCount*brickColumnCount) {
-                        //alert("You Win, Congratulations!")
-                        //document.location.reload();
                         ctx.clearRect(0, 0, canvas.width, canvas.height);
                         document.getElementById("level_complete").classList.add("visible"); 
                         clearInterval(interval);
@@ -90,8 +104,7 @@ function drawScore() {
     ctx.textAlign = "center";
 }
 
-//Zeichnen der Hintergrundelemente
-//Canvas: height="520" width="680"
+//Zeichnen der Fische
 function drawFishes() {
     var img = new Image();
     var img2 = new Image();
@@ -144,15 +157,18 @@ function drawPaddle() {
     ctx.closePath();
 }
 
-//Zeichnen der Bricks aus dem 2D Array
+//Zeichnen der Bricks
 function drawBricks() {
+    //Iterieren der Spalten im Aufbau der Bricks
     for(var c=0; c<brickColumnCount; c++) {
+        //Iterieren der Zeilen
         for(var r=0; r<brickRowCount; r++) {
             if(bricks[c][r].status == 1) {
                 var brickX = (c*(brickWidth+brickPadding))+brickOffsetLeft;
                 var brickY = (r*(brickHeight+brickPadding))+brickOffsetTop;
                 bricks[c][r].x = brickX;
                 bricks[c][r].y = brickY;
+                //Zeichnen eines Bricks
                 ctx.beginPath();
                 ctx.rect(brickX, brickY, brickWidth, brickHeight);
                 ctx.fillStyle = "#0095DD";
@@ -164,7 +180,9 @@ function drawBricks() {
 }
 
 var counter = 0;
+//Function wird alle 10 ms ausgefuert
 function draw() {
+    //Aufruf der functions zum zeichnen im canvas
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     drawBackground();
     drawBall();
@@ -173,6 +191,8 @@ function draw() {
     collisionDetection();
     drawBricks();
     drawFishes();
+    
+    //Richtungsvariable der Fische wird alle 12 Sek. zurueckgesetzt
     if(counter%1200 == 0) {
         bx = -300;
         by=0;
@@ -180,21 +200,26 @@ function draw() {
 
 
 
-    
+    // Wenn der Ball den Spielfeldrand berührt, soll der Ball seine Richtung aendern und ein Sound wird abgespielt
+    // Die Variable dx gibt die Richtung des Spielball an
     if(x + dx > canvas.width-ballRadius || x + dx < ballRadius) {
         dx = -dx;
+        impact2.play();
     }
     if(y + dy < ballRadius) {
         dy = -dy;
+        impact2.play();
     }
     else if(y + dy > canvas.height-ballRadius) {
         if(x > paddleX && x < paddleX + paddleWidth) {
             dy = -dy;
+            impact2.play();
         }
+        
+        //Wenn der Ball den unteren Teil des Spielfeldrandes beruehrt, wird der Game Over Screen eingeblendet
+        //Der Inhalt des Canvas wird entfernt sowie die variable interval zurueckgesetzt wird
         else {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            //alert("GAME OVER");
-            //document.location.reload();
             document.getElementById("game_over").classList.add("visible");  
             clearInterval(interval); // Needed for Chrome to end game
         }
@@ -214,9 +239,10 @@ function draw() {
     //Koordinaten der Fischbewegung x & y
     bx += fx;
     by += fy;
-
+    
+    //Fuer zeichnen der Fische 
     counter++;
 
 }
 
-var interval = setInterval(draw, 10); //Interval fuer das Zeichnen der Frames 
+var interval = setInterval(draw, 10); //Interval fuer das Zeichnen der Frames im 10 ms takt 
