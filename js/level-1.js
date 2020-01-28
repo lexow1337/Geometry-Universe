@@ -65,9 +65,14 @@ function component(width, height, color, x, y, type) {
     this.update = function() {
             ctx = myGameArea.context;
         if (this.type == "text") {
-			ctx.font = "50px Agency FB";
-            ctx.fillStyle = color;
-            ctx.fillText(this.text, this.x, this.y);
+			ctx.font = "20px Agency FB";
+			ctx.fillStyle = color;
+			ctx.fillText(myDistance + "m", 50, 20);
+			ctx.font = "20px Agency FB";
+			ctx.fillStyle = color;
+			ctx.fillText("Höhle des Majiritji", 462, 20);
+			ctx.textAlign = "center";
+
         } else {
             ctx.fillStyle = color;
             ctx.fillRect(this.x, this.y, this.width, this.height);
@@ -298,7 +303,7 @@ function updateGameArea() {
 }
 
 function updates(){
-	myScore.text="Höhle des Majritji " + myDistance + " m";
+	//myScore.text="Höhle des Majritji " + myDistance + " m";
 	myScore.update();
 	myGamePiece.newPos();
 	myGamePiece.update();
