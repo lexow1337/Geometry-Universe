@@ -299,7 +299,7 @@ function collisionShotWithShip() {
 }
 
 function collisionShipWithBricks() {
-    //iterates through enemies array and compares every enemies position with shot (of ship) position
+    //iterates through enemies array and compares every enemies position with ship position
     for (let column = 0; column < brickColumnCount; column++) {
         for (let row = 0; row <= column; row++) {
             //variable for comfort and less writing
@@ -308,7 +308,7 @@ function collisionShipWithBricks() {
             if (b.status === 1) {
                 //compares the position of every corners of the ship with the enemies position
                 if (shipX <= b.x + brickWidth && shipX >= b.x && shipY >= b.y && shipY <= b.y + brickHeight || shipX + shipWidth >= b.x && shipX + shipWidth <= b.x + brickWidth && shipY >= b.y && shipY <= b.y + brickHeight || shipX >= b.x && shipX <= b.x + brickWidth && shipY + shipHeight >= b.y && shipY + shipHeight <= b.x + brickHeight || shipX + shipWidth >= b.x && shipX + shipWidth <= b.x + brickWidth && shipY + shipHeight >= b.y && shipY + shipHeight <= b.x + brickHeight) {
-                    //game over screen if ship is hit
+                    //game over screen if ship hits an enemy
                     setTimeout(function () {
                         ctx.clearRect(0, 0, canvas.width, canvas.height);
                         document.getElementById("game_over").classList.add("visible");
