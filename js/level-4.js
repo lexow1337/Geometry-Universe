@@ -35,6 +35,8 @@ let lastShot = 100000;
 let lastShotBricks = -300;
 //enemy shot speed; increases for every enemy killed
 let brickShotSpeed = 3;
+//the ship is not allowed to fly past x = 0.4 * canvas.height; increases when enemies are defeated
+let barrierPosition = 0.4;
 //number of enemies
 let brickCount = 0;
 //enemies getting counted
@@ -88,8 +90,8 @@ function drawShip() {
     //moves the ship right when pressed 'd'
     } else if (rightPressed) {
         shipX += 3;
-        if (shipX + shipWidth > canvas.width * 0.4) {
-            shipX = canvas.width * 0.4 - shipWidth;
+        if (shipX + shipWidth > canvas.width * barrierPosition) {
+            shipX = canvas.width * barrierPosition - shipWidth;
         }
     }
     //ship shoots when pressed space; 30 ist the time between two shots in (30 --> 3 ms)
@@ -257,6 +259,8 @@ function collisionWithBricks() {
                         score += 10;
                         //enemy shot speed increases if enemy is defeated
                         brickShotSpeed += 0.2;
+                        //increases the x value that the ship can reach at max
+                        barrierPosition += 0.04;
                         //if all enemies are defeated show 'level complete' screen
                         if (score === 10 * brickCount) {
                             setTimeout(function () {
