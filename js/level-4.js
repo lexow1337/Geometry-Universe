@@ -82,7 +82,7 @@ function drawShip() {
         });
         lastShot = 0;
     }
-    if (downPressed) {
+    if (downPressed || rightPressed || leftPressed || upPressed || spacePressed) {
         document.getElementById("spaceBack").play();
     }
     lastShot++;

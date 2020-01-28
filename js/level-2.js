@@ -80,8 +80,6 @@ function shoot(e) {
         if(character.shooting) {
         document.getElementById("shot").play();
     }
-    
-
 }
 
 
@@ -91,8 +89,8 @@ function enemyLogic(i, frametime) {
 
     var angle = Math.atan2(y, x);
         
-    enemies[i].posX += Math.cos(angle) * 200 * frametime;
-    enemies[i].posY += Math.sin(angle) * 200 * frametime;
+    enemies[i].posX += Math.cos(angle) * 300 * frametime;
+    enemies[i].posY += Math.sin(angle) * 300 * frametime;
     // Wenn die Gegnerposition und die Position des Schusses übereinstimmen wird der Score erhöht ind ein Bild für 30 Zyklen gezeigt//
     if(character.shooting && 
        shot.posX  +16 >= enemies[i].posX && shot.posX -16 <= enemies[i].posX + 32 &&
@@ -115,7 +113,7 @@ function enemyLogic(i, frametime) {
 // Die Logik des Spiels wird Festgelegt//
 function logic(frametime) {
     // Den Aktionstasten werden Aktionen zugeordenet//
-    if(87 in keysDown) character.posY -= character.speed * frametime;  // W
+    if(87 in keysDown) character.posY -= character.speed * frametime; // W
     if(65 in keysDown) character.posX -= character.speed * frametime; // A
     if(83 in keysDown) character.posY += character.speed * frametime; // S
     if(68 in keysDown) character.posX += character.speed * frametime; // D
@@ -194,7 +192,7 @@ function draw() {
     // Durch ein Bild dargestellt//
     ctx.drawImage(planetImg, centerX, centerY)
     
-    if(level == 11) {
+    if(level == 10) {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         document.getElementById("level_complete").classList.add("visible");  
         clearInterval(interval); // Needed for Chrome to end game
@@ -215,19 +213,23 @@ function mouse(e)
     
 }
 function borders() {
-     if(character.posX < 0) {
-        character.posX = 0;
+    //Wenn die Hälfte des Spielcharacters die Bildgrenze überschritten hat, wir er mit der Hälfte abgezogen ans andere Ende gesetzt//
+     if(character.posX < -16) { 
+        character.posX = canvas.width -16;
             }
-    if(character.posY < 0) {
-       character.posY = 0; 
+    if(character.posY < -16) {
+       character.posY = canvas.height -16; 
     }
-    if(character.posX +32 > canvas.width) {
-        character.posX = canvas.width - 32;
+    if(character.posX +16 > canvas.width) {
+        character.posX = 16;
     }
-    if(character.posY +32 > canvas.height) {
-        character.posY = canvas.height -32;
+    if(character.posY +16 > canvas.height) {
+        character.posY = 16;
     }
-    
+    //Planetenkollision
+    if((character.posX > 409 && character.posX< 509) && (character.posY >184 && character.posY <284)){
+     (character.posX = 200) && (character.posY = 200);   
+    }
 }
 
 function gameLoop() {
