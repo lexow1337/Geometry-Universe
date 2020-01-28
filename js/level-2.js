@@ -24,28 +24,28 @@ var canvasY = 0;
     
 
 function init() {
-    //Charakter und Schuss werden initiert und der Charakter mit Lebenspunkten und anderen wichtigen Startwerten wie einer Bildvariable versehen.//
+    //character and shot get generated and paired with a picture and their starting variables //
     character = { img: new Image(), posX:200, posY: 200, shooting: false, hp: 1000, speed: 300};
     shot = { img: new Image(), posX: 0, posY: 0, dirX: 0, dirY: 0, speed: 600 };
-    //Die benötigten Bilder werden jeweils den passenden Variablen zugeordnet.//
+    //the picture variables get their picture//
     backgroundImg.src = "resources/level_2/Hintergrund.png";
     character.img.src = "resources/level_2/Spielcharacter.png";
     shot.img.src = "resources/level_2/Schuss.png";
     enemyImg.src = "resources/level_2/Gegner.png";
     enemyDeadImg.src = "resources/level_2/Splosion11.png";
     planetImg.src = "resources/level_2/Planetenoberflaeche1.png";
-    //Die Funktion zum generieren von Gegnern wird aufgerufen.//    
+    //function to generate enemies is activated//    
     generateEnemies();
-    // Die Eingabe-Ereignisse verden Eventlistenern Variablen zugeordent//
+    // input events are initiated//
     window.addEventListener("keydown", function (e) { keysDown[e.keyCode] = true; }, false);
     window.addEventListener("keyup", function (e) { delete keysDown[e.keyCode]; }, false);
     window.addEventListener("click", shoot, false);
     
 }
 
-//Funktion zum gernerieren von Gegnern//
+//generate enemies//
 function generateEnemies() {
-    // jedes mal wenn die Funktionaufgerufen wird ein Level erhöht//
+    // everytime the function get renewed an level is added//
     ++level;
     
     for (var i = 0; i < level * 5; ++i)
@@ -53,13 +53,13 @@ function generateEnemies() {
         // random Position
         var ranX = Math.floor(Math.random() * (canvas.width * 3)) - canvas.width;
         var ranY = Math.floor(Math.random() * (canvas.height * 3)) - canvas.height;
-        // Wenn gegner da sind wird ihnen ein Bild und eine Random X und Y Position zugeordnet//
+        // enemies get placed in the random position//
         enemies[enemies.length] = { img: enemyImg, posX: ranX, posY: ranY};
     }
 }
-// Funktionzum initiieren des Schusses//
+// function for shooting//
 function shoot(e) {
-    // Wenn der Spielcharakter schießen aktiviert hat wird die Startposition des Schusses auf die Charakterpostion gesetzt//
+    // when a shot is activated the image gets placed on the character position//
     if(character.shooting) return;
     
     character.shooting = true;
@@ -71,7 +71,7 @@ function shoot(e) {
     
 	var x = canvasX - character.posX;
     var y = canvasY - character.posY;
-    // der Schuss wird nun in die berechnete Richtung losgelassen//
+    // shot gets released in calculated direction//
 	var angle = Math.atan2(y, x);
 
 	shot.dirX = Math.cos(angle);
@@ -91,7 +91,7 @@ function enemyLogic(i, frametime) {
         
     enemies[i].posX += Math.cos(angle) * 300 * frametime;
     enemies[i].posY += Math.sin(angle) * 300 * frametime;
-    // Wenn die Gegnerposition und die Position des Schusses übereinstimmen wird der Score erhöht ind ein Bild für 30 Zyklen gezeigt//
+    // when the enemypositon and the shot position match the score gets higher and Image is shown for 30 cycles//
     if(character.shooting && 
        shot.posX  +16 >= enemies[i].posX && shot.posX -16 <= enemies[i].posX + 32 &&
        shot.posY +16 >= enemies[i].posY && shot.posY -16 <= enemies[i].posY + 32)
@@ -102,7 +102,7 @@ function enemyLogic(i, frametime) {
         character.shooting = false;
         
     }
-    // Wenn die Charakter HP größer als 0 sind und ein Gegner auf seiner Position steht wird dem Spieler 50 HP abgezogen//
+    // when the enemy position is on the character position, character loses health//
     if(character.hp > 0 &&
        enemies[i].posX >= character.posX && enemies[i].posX <= character.posX + 32 &&
        enemies[i].posY >= character.posY && enemies[i].posY <= character.posY + 32)
@@ -110,9 +110,9 @@ function enemyLogic(i, frametime) {
         character.hp -= 50 * frametime;
     }   
 }
-// Die Logik des Spiels wird Festgelegt//
+// the logic of the game//
 function logic(frametime) {
-    // Den Aktionstasten werden Aktionen zugeordenet//
+    // key are set to their keys//
     if(87 in keysDown) character.posY -= character.speed * frametime; // W
     if(65 in keysDown) character.posX -= character.speed * frametime; // A
     if(83 in keysDown) character.posY += character.speed * frametime; // S
@@ -129,7 +129,7 @@ function logic(frametime) {
             }
            
         }
-    //Wenn im Gegner Array nichts mehr vorhanden ist werden neue Gegner generiert//
+    //when the array's empty enemys spawn//
 
         for(var i = 0; i < enemies.length; ++i)
         {
@@ -143,11 +143,11 @@ function logic(frametime) {
 
     }
 
-// Mit dieser funktion wird die gesamte Darstellung gemalt//
+// draws the enitre canvas//
 function draw() {
     // Hintergrund wird gemalt//
     ctx.drawImage(backgroundImg, 0, 0);
-    // Wenn ein gegner Stirbt wird ihm ein anderes Bild zugeordnet und danach wird er entfernt// 
+    // when an enemy dies it gets a new Image// 
     if(character.hp > 0)
     {
         for(var i = 0; i < enemies.length; ++i)
@@ -162,19 +162,19 @@ function draw() {
         }
 
         ctx.drawImage(character.img, character.posX, character.posY);
-        //Wenn der Spieler schießt wird dem Schuss ein Bild zugeordnet//
+        //when the player shoots, the shot get an Image//
         if(character.shooting)
         {
             ctx.drawImage(shot.img, shot.posX, shot.posY);
         }
-        // Die Schrift wird mit Farbe und den Score generiert//
+        // text with respective font and score are drawn//
     ctx.font = "20px Agency FB";
     ctx.fillStyle = 'rgb(200, 200, 200)';
     ctx.fillText("Wave: " + level, 20, 30);
     ctx.fillText("Angriff der Ersianner",390,30);
     ctx.fillText("Score: " + score, 20, 60);
     ctx.fillText("HP: " + Math.ceil(character.hp), 20, 90);
-    // Wenn die HP unter 300 sinkt wird der Balken Rot eingefärbt//
+    // when hp below 300 healthbar turns red//
         if (character.hp > 300)  
         {
          ctx.fillStyle = 'rgb(0, 255, 0)';
@@ -189,7 +189,7 @@ function draw() {
         }
         ctx.fillRect(20,110,character.hp/10,10);  
     }
-    // Durch ein Bild dargestellt//
+    // shown throungh this picture//
     ctx.drawImage(planetImg, centerX, centerY)
     
     if(level == 10) {
@@ -206,14 +206,17 @@ function draw() {
         }
 }
 function mouse(e) 
-{
+{   // mouse gets a barier to canvas size//
      cRect = canvas.getBoundingClientRect();      
      canvasX = Math.round(e.clientX - cRect.left); 
      canvasY = Math.round(e.clientY - cRect.top);
     
 }
 function borders() {
-    //Wenn die Hälfte des Spielcharacters die Bildgrenze überschritten hat, wir er mit der Hälfte abgezogen ans andere Ende gesetzt//
+    //variables for random position when planet touch//
+    var randomY = Math.round(Math.random() * (520 - 0)) + 0;
+    var randomX = Math.round(Math.random() * (924 - 0)) + 0;
+    //when the character steps through the border half way gets set to the other side//
      if(character.posX < -16) { 
         character.posX = canvas.width -16;
             }
@@ -226,9 +229,9 @@ function borders() {
     if(character.posY +16 > canvas.height) {
         character.posY = 16;
     }
-    //Planetenkollision
+    //planet collision//
     if((character.posX > 409 && character.posX< 509) && (character.posY >184 && character.posY <284)){
-     (character.posX = 200) && (character.posY = 200);   
+        (character.posX = randomX) && (character.posY = randomY);  
     }
 }
 
@@ -242,6 +245,6 @@ function gameLoop() {
     
     frametimeBefore = now;   
 }
-// Der Code wird in einer geloopten Zeit aufgerufen//
+// the code gets renewed in intervals//
 init();
 setInterval(gameLoop, 0);
